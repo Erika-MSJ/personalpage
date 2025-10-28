@@ -252,7 +252,7 @@ export default function Home() {
       <section className="container mx-auto px-6 pt-12 pb-20 fade-in-section">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-sm md:text-base tracking-[0.3em] text-gray-500 dark:text-gray-400 mb-10 uppercase text-center">
-            Product Ideas / 产品想法
+            Product Ideas / 产品探索
           </h2>
 
           <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
