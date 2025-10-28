@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// 英文字体 - Inter (现代、专业)
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// 中文字体 - Noto Sans SC (思源黑体，现代、清晰)
+const notoSansSC = Noto_Sans_SC({
+  variable: "--font-noto-sans-sc",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "700", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${notoSansSC.variable} antialiased`}
         suppressHydrationWarning
       >
         {children}

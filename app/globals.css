@@ -3,26 +3,39 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* 深青蓝品牌色系统 */
+  --brand-primary: #1a5f7a;
+  --brand-light: #2d7a9b;
+  --brand-dark: #0d3d52;
+  --brand-subtle: #e6f2f7;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-noto-sans-sc);
+  --font-inter: var(--font-inter);
+
+  /* 品牌色 Tailwind 配置 */
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-light: var(--brand-light);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-subtle: var(--brand-subtle);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --brand-subtle: #0f2b35;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-noto-sans-sc), var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -32,15 +45,15 @@ html {
   scroll-behavior: smooth;
 }
 
-/* 选中文本样式 */
+/* 选中文本样式 - 使用品牌色 */
 ::selection {
-  background-color: #000;
+  background-color: var(--brand-primary);
   color: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
   ::selection {
-    background-color: #fff;
+    background-color: var(--brand-light);
     color: #000;
   }
 }
