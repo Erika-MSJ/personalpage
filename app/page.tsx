@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import Navbar from "./components/Navbar";
+import FeedbackModal from "./components/FeedbackModal";
 
 export default function Home() {
   const [showWechat, setShowWechat] = useState(false);
   const [showShipinhao, setShowShipinhao] = useState(false);
   const [showGongzhonghao, setShowGongzhonghao] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   // 滚动监听 - 显示返回顶部按钮
   useEffect(() => {
@@ -124,13 +127,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <Navbar />
 
       {/* 1. Header Section - 头像、姓名、标签 */}
-      <section className="container mx-auto px-6 py-20 md:py-28">
+      <section id="home" className="container mx-auto px-6 py-28 md:py-36">
         <div className="max-w-4xl mx-auto text-center">
           {/* Avatar - 圆形头像带动效 */}
           <div className="mb-8 inline-block">
-            <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden shadow-2xl transition-all duration-500 ease-out hover:scale-110 hover:shadow-[0_0_40px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_0_40px_rgba(255,255,255,0.15)] group cursor-pointer">
+            <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden shadow-2xl animate-breathing group cursor-pointer">
               <Image
                 src="/avatar.jpg"
                 alt="孟善见 Erika"
@@ -168,7 +172,7 @@ export default function Home() {
       </section>
 
       {/* 2. Experience Section - 个人经历 Point Form */}
-      <section className="container mx-auto px-6 pt-2 pb-16 fade-in-section">
+      <section id="journey" className="container mx-auto px-6 pt-2 pb-16 fade-in-section scroll-mt-24">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-sm md:text-base tracking-[0.3em] text-gray-500 dark:text-gray-400 mb-10 uppercase text-center">
             My Journey / 个人经历
@@ -224,7 +228,7 @@ export default function Home() {
       </section>
 
       {/* 4. Philosophy - 理念，显眼突出 */}
-      <section className="container mx-auto px-6 pt-12 pb-24 md:pb-28 fade-in-section">
+      <section id="philosophy" className="container mx-auto px-6 pt-12 pb-24 md:pb-28 fade-in-section scroll-mt-24">
         <div className="max-w-4xl mx-auto text-center">
           <div className="relative inline-block group cursor-pointer">
             {/* Decorative Elements - 使用品牌色 */}
@@ -249,7 +253,7 @@ export default function Home() {
       </section>
 
       {/* 4.5 Product Ideas - 产品想法 */}
-      <section className="container mx-auto px-6 pt-12 pb-20 fade-in-section">
+      <section id="products" className="container mx-auto px-6 pt-12 pb-20 fade-in-section scroll-mt-24">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-sm md:text-base tracking-[0.3em] text-gray-500 dark:text-gray-400 mb-10 uppercase text-center">
             Product Ideas / 产品探索
@@ -264,7 +268,7 @@ export default function Home() {
               // 为邀请卡片准备点击处理
               const handleInvitationClick = () => {
                 if (idea.isInvitation) {
-                  window.location.href = 'mailto:erikamengsj@gmail.com?subject=产品想法分享';
+                  setShowFeedbackModal(true);
                 }
               };
 
@@ -272,11 +276,10 @@ export default function Home() {
                 <div
                   key={index}
                   onClick={idea.isInvitation ? handleInvitationClick : undefined}
-                  className={`group relative p-6 rounded-xl border-2 transition-all duration-300 ${
-                    idea.isInvitation
-                      ? 'border-dashed border-[#1a5f7a]/40 dark:border-[#2d7a9b]/40 bg-gradient-to-br from-[#e6f2f7]/30 to-white dark:from-[#0f2b35]/30 dark:to-gray-950 hover:border-[#1a5f7a] dark:hover:border-[#2d7a9b] hover:shadow-lg hover:shadow-[#1a5f7a]/10 cursor-pointer hover:scale-105'
-                      : 'border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-[#1a5f7a]/50 dark:hover:border-[#2d7a9b]/50 hover:shadow-md'
-                  }`}
+                  className={`group relative p-6 rounded-xl border-2 transition-all duration-300 ${idea.isInvitation
+                    ? 'border-dashed border-[#1a5f7a]/40 dark:border-[#2d7a9b]/40 bg-gradient-to-br from-[#e6f2f7]/30 to-white dark:from-[#0f2b35]/30 dark:to-gray-950 hover:border-[#1a5f7a] dark:hover:border-[#2d7a9b] hover:shadow-lg hover:shadow-[#1a5f7a]/10 cursor-pointer hover:scale-105'
+                    : 'border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-[#1a5f7a]/50 dark:hover:border-[#2d7a9b]/50 hover:shadow-md'
+                    }`}
                 >
                   {/* Status Badge */}
                   <div className="mb-4">
@@ -286,11 +289,10 @@ export default function Home() {
                   </div>
 
                   {/* Title */}
-                  <h3 className={`text-lg font-semibold mb-3 transition-colors duration-300 ${
-                    idea.isInvitation
-                      ? 'text-[#1a5f7a] dark:text-[#2d7a9b]'
-                      : 'text-gray-900 dark:text-white'
-                  }`}>
+                  <h3 className={`text-lg font-semibold mb-3 transition-colors duration-300 ${idea.isInvitation
+                    ? 'text-[#1a5f7a] dark:text-[#2d7a9b]'
+                    : 'text-gray-900 dark:text-white'
+                    }`}>
                     {idea.title}
                   </h3>
 
@@ -339,9 +341,8 @@ export default function Home() {
                 <div
                   key={index}
                   onClick={isClickable ? handleClick : undefined}
-                  className={`group bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border border-gray-200 dark:border-gray-800 rounded-xl p-6 transition-all duration-300 ${
-                    isClickable ? 'hover:border-[#1a5f7a] dark:hover:border-[#2d7a9b] hover:shadow-xl hover:shadow-[#1a5f7a]/10 dark:hover:shadow-[#2d7a9b]/10 cursor-pointer hover:scale-105' : ''
-                  }`}
+                  className={`group bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border border-gray-200 dark:border-gray-800 rounded-xl p-6 transition-all duration-300 ${isClickable ? 'hover:border-[#1a5f7a] dark:hover:border-[#2d7a9b] hover:shadow-xl hover:shadow-[#1a5f7a]/10 dark:hover:shadow-[#2d7a9b]/10 cursor-pointer hover:scale-105' : ''
+                    }`}
                 >
                   {/* QR Code with overlay effect */}
                   <div className="relative w-full aspect-square mb-4 rounded-lg overflow-hidden bg-white shadow-md">
@@ -372,7 +373,7 @@ export default function Home() {
       </section>
 
       {/* 6. Contact Section - 地图、微信、邮箱 */}
-      <section className="container mx-auto px-6 pt-12 pb-24 fade-in-section">
+      <section id="contact" className="container mx-auto px-6 pt-12 pb-24 fade-in-section scroll-mt-24">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-sm md:text-base tracking-[0.3em] text-gray-500 dark:text-gray-400 mb-10 uppercase text-center">
             Contact me / 联系方式
@@ -387,7 +388,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="block group cursor-pointer mx-auto w-[80%] focus:outline-none focus:ring-4 focus:ring-gray-400 rounded-xl"
               >
-                <div className="relative rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-gray-900 dark:hover:border-white transition-all duration-300 hover:shadow-lg bg-gray-50 dark:bg-gray-900" style={{ aspectRatio: '16/10' }}>
+                <div className="relative rounded-xl overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl transition-all duration-300 hover:scale-[1.02]" style={{ aspectRatio: '16/10' }}>
                   {/* 使用腾讯地图静态图 - 成都地图，大标记 */}
                   <img
                     src="https://apis.map.qq.com/ws/staticmap/v2/?center=30.572816,104.066803&zoom=11&size=600*400&maptype=roadmap&markers=size:large|color:red|30.572816,104.066803&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"
@@ -462,11 +463,36 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-800 py-8">
+      <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-12">
         <div className="container mx-auto px-6">
-          <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="text-center md:text-left">
+              <h4 className="font-bold text-lg mb-2">M. Erika</h4>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Be a builder. Build with AI.
+              </p>
+            </div>
+
+            <div className="flex gap-6">
+              <a href="#" className="text-gray-500 hover:text-[#1a5f7a] dark:hover:text-[#2d7a9b] transition-colors">Home</a>
+              <a href="#journey" className="text-gray-500 hover:text-[#1a5f7a] dark:hover:text-[#2d7a9b] transition-colors">Journey</a>
+              <a href="#philosophy" className="text-gray-500 hover:text-[#1a5f7a] dark:hover:text-[#2d7a9b] transition-colors">Philosophy</a>
+              <a href="#products" className="text-gray-500 hover:text-[#1a5f7a] dark:hover:text-[#2d7a9b] transition-colors">Products</a>
+            </div>
+
+            <div className="flex gap-4">
+              <button
+                onClick={() => setShowFeedbackModal(true)}
+                className="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-800 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-[#1a5f7a] dark:hover:bg-[#2d7a9b] hover:text-white transition-all duration-300 flex items-center gap-2 group"
+              >
+                <span>✨ Share your idea</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-400 dark:text-gray-600 text-xs">
             © 2025 孟善见 Erika. All rights reserved.
-          </p>
+          </div>
         </div>
       </footer>
 
@@ -584,6 +610,12 @@ export default function Home() {
           </svg>
         </button>
       )}
+
+      {/* Feedback Modal */}
+      <FeedbackModal
+        isOpen={showFeedbackModal}
+        onClose={() => setShowFeedbackModal(false)}
+      />
 
       <style jsx>{`
         @keyframes fadeIn {
